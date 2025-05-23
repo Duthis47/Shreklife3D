@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-
     public GameObject pickUp;
     public GameObject ground;
     private List<GameObject> pickUps;
@@ -75,6 +75,6 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
