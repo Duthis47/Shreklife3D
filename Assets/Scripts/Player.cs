@@ -19,12 +19,12 @@ class Player
         Player.pseudo = pseudo;
     }
 
-    public static async void setScore(int score)
+    public static void setScore(int score)
     {
+        LoseScreenController.Score = score;
         if (Player.score > score)
         {
             Player.score = score;
-            await MenuController.UpdateScoreBDD(Player.score, Player.id);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class GameController : MonoBehaviour
     public GameObject pickUp;
     public GameObject ground;
     private List<GameObject> pickUps;
+
+    public TMP_Text pseudoPlayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -26,13 +29,14 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
-        addPickUp();
+        pseudoPlayer.text = Player.pseudo;
+        for (int i = 0; i < 3; i++)
+        {
+            addPickUp();
+        }
     }
     public void addPickUp()
     {
-        int maxPickUps = 3;
-        while (pickUps.Count < maxPickUps)
-        {
             bool placable = true;
             Vector3 position = GetRandomPositionOnPlane(ground);
             Quaternion rotation = Quaternion.Euler(45, 45, 45);
@@ -53,7 +57,6 @@ public class GameController : MonoBehaviour
                 GameObject newObject = Instantiate(pickUp, position, rotation);
                 pickUps.Add(newObject);
             }
-        }
     }
     private Vector3 GetRandomPositionOnPlane(GameObject plane, float y = 0.5f)
     {
@@ -67,10 +70,7 @@ public class GameController : MonoBehaviour
     public void capturePickUp(GameObject pickUp)
     {
         pickUps.Remove(pickUp);
-        if (pickUps.Count == 0)
-        {
-            addPickUp();
-        }
+        addPickUp();
     }
     // Update is called once per frame
     void Update()
