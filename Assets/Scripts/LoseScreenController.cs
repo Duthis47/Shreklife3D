@@ -15,6 +15,7 @@ public class LoseScreenController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Player.setScore(LoseScreenController.Score);
         replayButton.interactable = false;
         replayButton.onClick.AddListener(restartGame);
         pseudoText.text = Player.pseudo;

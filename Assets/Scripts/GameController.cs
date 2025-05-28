@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class GameController : MonoBehaviour

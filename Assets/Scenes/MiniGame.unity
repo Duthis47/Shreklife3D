@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  customAngularDamping: 0.6
   countText: {fileID: 819054019}
 --- !u!114 &763590993
 MonoBehaviour:

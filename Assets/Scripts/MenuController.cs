@@ -78,24 +78,10 @@ public class MenuController : MonoBehaviour
     public static async Task<bool> UpdateScoreBDD(int score, int id)
     {
         string URL_Connect = $"{URLServeur}/update.php";
+        Debug.Log("" + score + "-" + id);
+        bool reponse = await SendPostRequestUpdateBDD(URL_Connect);
 
-        ReponseConnexion reponse = await SendPostRequest(URL_Connect, new Dictionary<string, string>()
-        {
-            {"score", ""+score},
-            {"id", ""+id}
-        });
-
-        if (reponse != null && reponse.success)
-        {
-            return true;
-        }
-        else if (reponse != null && !reponse.success)
-        {
-            return false;
-        }
-
-        Debug.LogWarning("Connexion échouée.");
-        return false;
+        return reponse;
     }
 
     public static async Task<int> RecupClassementUser()
@@ -154,7 +140,6 @@ public class MenuController : MonoBehaviour
             Debug.Log("Code HTTP : " + req.responseCode);
             Debug.Log("Body reçu : " + req.downloadHandler.text);
 
-
             if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError("Erreur : " + req.error);
@@ -176,7 +161,29 @@ public class MenuController : MonoBehaviour
         }
     }
 
+public static async Task<bool> SendPostRequestUpdateBDD(string url)
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>
+        {
+            { "id", Player.id.ToString() },
+            { "score", Player.score.ToString() },
+        };
+        using (UnityWebRequest req = UnityWebRequest.Post(url, data))
+        {
+            await req.SendWebRequest();
 
+            Debug.Log("Code HTTP : " + req.responseCode);
+            Debug.Log("Body reçu : " + req.downloadHandler.text);
+
+
+            if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Erreur : " + req.error);
+                return false;
+            }
+            return true;
+        }
+    }
     public static async Task<ReponseClassement> SendPostRequest(string url)
     {
         Dictionary<string, string> data = new Dictionary<string, string>
@@ -264,5 +271,5 @@ public class ReponseClassement
 public class ReponseLeaderboard
 {
     public List<String> classementsPlayers;
-    public bool success; 
+    public bool success;
 }

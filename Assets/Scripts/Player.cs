@@ -1,10 +1,11 @@
+using UnityEngine;
 using JetBrains.Annotations;
 
 class Player
 {
     public static Player Instance { get; set; }
     public static string pseudo { get; private set; }
-    public static int score { get; private set; }
+    public static int score { get; private set; } = 0;
     public static int id { get; private set; }
 
     public static void setIdPlayer(int id)
@@ -21,10 +22,13 @@ class Player
 
     public static void setScore(int score)
     {
-        LoseScreenController.Score = score;
-        if (Player.score > score)
+        if (Player.score < score)
         {
             Player.score = score;
+        }
+        else
+        {
+            Debug.Log("POOOOUUUUURRQUUUUOI");
         }
     }
 }

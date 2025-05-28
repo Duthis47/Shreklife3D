@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,8 +53,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Player.setScore(count);
             Destroy(gameObject);
+            LoseScreenController.Score = count;
+            Debug.Log(""+LoseScreenController.Score);
             SceneManager.LoadScene("LoseScreen");
         }
     }
